@@ -29,8 +29,6 @@ class MoviesController extends AbstractController
 
         $movies = $repository->findAll();
 
-        dd($movies);
-
         return $this->render('movies/index.html.twig');
     }
 }
