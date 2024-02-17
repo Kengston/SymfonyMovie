@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Symfony\Component\Validator\Constraint as Assets;
+
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -18,15 +20,20 @@ class Movie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    # @Assert\NotBlank
+    # @Assert\Length(min=3)
     private ?string $title = null;
 
     #[ORM\Column(type: Types::BIGINT)]
+    # @Assert\NotBlank
     private ?int $releaseYear = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    # @Assert\NotBlank
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    # @Assert\NotBlank
     private ?string $imagePath = null;
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
@@ -47,7 +54,7 @@ class Movie
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): static
     {
         $this->title = $title;
 
@@ -59,7 +66,7 @@ class Movie
         return $this->releaseYear;
     }
 
-    public function setReleaseYear(int $releaseYear): static
+    public function setReleaseYear(?int $releaseYear): static
     {
         $this->releaseYear = $releaseYear;
 
@@ -83,7 +90,7 @@ class Movie
         return $this->imagePath;
     }
 
-    public function setImagePath(string $imagePath): static
+    public function setImagePath(?string $imagePath): static
     {
         $this->imagePath = $imagePath;
 
